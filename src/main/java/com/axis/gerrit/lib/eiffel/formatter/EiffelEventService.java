@@ -37,8 +37,9 @@ public class EiffelEventService {
         return eventTemplates;
     }
 
-    /***
+    /**
      * Get Eiffel event format from Gerrit event.
+     *
      * @param gerritEvent Gerrit event
      * @return String: Eiffel event
      */
@@ -52,7 +53,7 @@ public class EiffelEventService {
      * Get Eiffel event format from Gerrit event and set link id
      *
      * @param gerritEvent Gerrit event
-     * @param eiffelId Old eiffel event
+     * @param eiffelId Old Eiffel event
      * @return String: Eiffel event
      */
     public String getEiffel(JsonObject gerritEvent, String eiffelId) {
