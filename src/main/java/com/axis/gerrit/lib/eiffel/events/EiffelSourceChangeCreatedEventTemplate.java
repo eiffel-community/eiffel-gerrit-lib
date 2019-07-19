@@ -91,8 +91,7 @@ public class EiffelSourceChangeCreatedEventTemplate extends EventTemplate {
 
         eventData.setGitIdentifier(gitIdentifier);
     }
-
-    @Override
+    
     public void setLinksEvent(String target) {
 
     }
