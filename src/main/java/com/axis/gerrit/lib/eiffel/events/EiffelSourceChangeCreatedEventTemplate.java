@@ -70,7 +70,7 @@ public class EiffelSourceChangeCreatedEventTemplate extends EventTemplate {
                 event.setData(eventData);
             }
         } else {
-            throw new NullPointerException("Meta is not set");
+            throw new NullPointerException("Meta is not set.");
         }
     }
 

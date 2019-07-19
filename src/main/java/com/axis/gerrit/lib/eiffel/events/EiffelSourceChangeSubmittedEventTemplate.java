@@ -79,7 +79,7 @@ public class EiffelSourceChangeSubmittedEventTemplate extends EventTemplate {
                 event.setLinks(Collections.singletonList(link));
             }
         } else {
-            throw new NullPointerException("Meta is not set");
+            throw new NullPointerException("Meta is not set.");
         }
     }
 
