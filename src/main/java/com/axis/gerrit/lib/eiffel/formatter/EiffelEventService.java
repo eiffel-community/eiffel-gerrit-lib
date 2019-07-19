@@ -29,6 +29,8 @@ import static com.axis.gerrit.lib.eiffel.formatter.GerritEventType.CHANGE_MERGED
 import static com.axis.gerrit.lib.eiffel.formatter.GerritEventType.PATCHSET_CREATED;
 
 /**
+ * Service for converting Gerrit event to Eiffel event.
+ *
  * @author Christian Bilevits, christian.bilevits@axis.com
  * @since 2019-07-17
  */
