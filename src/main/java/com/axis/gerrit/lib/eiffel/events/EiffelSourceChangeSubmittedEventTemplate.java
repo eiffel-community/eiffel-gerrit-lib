@@ -35,12 +35,12 @@ import static com.ericsson.eiffel.remrem.semantics.EiffelEventType.SOURCECHANGE_
 public class EiffelSourceChangeSubmittedEventTemplate extends EventTemplate {
 
     private EiffelSourceChangeSubmittedEvent event;
-    private EiffelSourceChangeSubmittedEventMeta metaEvent;
-    private EiffelSourceChangeSubmittedEventData dataEvent;
+    private EiffelSourceChangeSubmittedEventMeta eventMeta;
+    private EiffelSourceChangeSubmittedEventData eventData;
 
-    private Source sourceEvent;
-    private GitIdentifier gitIdentifierEvent;
-    private Link linkEvent;
+    private Source source;
+    private GitIdentifier gitIdentifier;
+    private Link link;
 
     private EiffelSourceChangeSubmittedEventTemplate(JsonObject eiffelTemplate) {
         super(eiffelTemplate);
@@ -51,32 +51,32 @@ public class EiffelSourceChangeSubmittedEventTemplate extends EventTemplate {
         JsonObject gitIdentifier = super.data.getAsJsonObject("gitIdentifier");
         JsonObject source = super.meta.getAsJsonObject("source");
 
-        this.gitIdentifierEvent = gson.fromJson(gitIdentifier, GitIdentifier.class);
-        this.sourceEvent = gson.fromJson(source, Source.class);
+        this.gitIdentifier = gson.fromJson(gitIdentifier, GitIdentifier.class);
+        this.source = gson.fromJson(source, Source.class);
 
-        this.linkEvent = new Link();
+        this.link = new Link();
         this.event = new EiffelSourceChangeSubmittedEvent();
-        this.metaEvent = new EiffelSourceChangeSubmittedEventMeta();
-        this.dataEvent = new EiffelSourceChangeSubmittedEventData();
+        this.eventMeta = new EiffelSourceChangeSubmittedEventMeta();
+        this.eventData = new EiffelSourceChangeSubmittedEventData();
 
     }
 
     @Override
     public void generateTemplate(JsonObject gerritEvent) {
-        setMetaEvent(gerritEvent);
-        setDataEvent(gerritEvent);
+        setEventMeta(gerritEvent);
+        setEventData(gerritEvent);
         generateTemplate();
     }
 
     @Override
     public void generateTemplate() {
-        if (metaEvent != null) {
-            event.setMeta(metaEvent);
-            if (dataEvent != null) {
-                event.setData(dataEvent);
+        if (eventMeta != null) {
+            event.setMeta(eventMeta);
+            if (eventData != null) {
+                event.setData(eventData);
             }
-            if (linkEvent != null) {
-                event.setLinks(Collections.singletonList(linkEvent));
+            if (link != null) {
+                event.setLinks(Collections.singletonList(link));
             }
         } else {
             throw new NullPointerException("Meta is not set");
@@ -84,27 +84,27 @@ public class EiffelSourceChangeSubmittedEventTemplate extends EventTemplate {
     }
 
     @Override
-    public void setMetaEvent(JsonObject meta) {
-        sourceEvent.setHost(meta.getAsJsonObject("change").get("url").toString());
-        sourceEvent.setName(meta.getAsJsonObject("patchSet").getAsJsonObject("uploader").get("name").toString());
-        metaEvent.setSource(sourceEvent);
+    public void setEventMeta(JsonObject meta) {
+        source.setHost(meta.getAsJsonObject("change").get("url").toString());
+        source.setName(meta.getAsJsonObject("patchSet").getAsJsonObject("uploader").get("name").toString());
+        eventMeta.setSource(source);
     }
 
     @Override
-    public void setDataEvent(JsonObject data) {
+    public void setEventData(JsonObject data) {
         JsonObject change = data.getAsJsonObject("change");
-        gitIdentifierEvent.setCommitId(change.get("id").toString());
-        gitIdentifierEvent.setBranch(change.get("branch").toString());
-        gitIdentifierEvent.setRepoName(data.get("project").toString());
-        gitIdentifierEvent.setRepoUri(change.get("url").toString());
+        gitIdentifier.setCommitId(change.get("id").toString());
+        gitIdentifier.setBranch(change.get("branch").toString());
+        gitIdentifier.setRepoName(data.get("project").toString());
+        gitIdentifier.setRepoUri(change.get("url").toString());
 
-        dataEvent.setGitIdentifier(gitIdentifierEvent);
+        eventData.setGitIdentifier(gitIdentifier);
     }
 
     @Override
     public void setLinksEvent(String target) {
-        linkEvent.setType("CHANGE");
-        linkEvent.setTarget(target);
+        link.setType("CHANGE");
+        link.setTarget(target);
     }
 
     @Override

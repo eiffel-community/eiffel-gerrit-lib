@@ -32,11 +32,11 @@ import static com.ericsson.eiffel.remrem.semantics.EiffelEventType.SOURCECHANGE_
 public class EiffelSourceChangeCreatedEventTemplate extends EventTemplate {
 
     private EiffelSourceChangeCreatedEvent event;
-    private EiffelSourceChangeCreatedEventMeta metaEvent;
-    private EiffelSourceChangeCreatedEventData dataEvent;
+    private EiffelSourceChangeCreatedEventMeta eventMeta;
+    private EiffelSourceChangeCreatedEventData eventData;
 
-    private Source sourceEvent;
-    private GitIdentifier gitIdentifierEvent;
+    private Source source;
+    private GitIdentifier gitIdentifier;
 
     private EiffelSourceChangeCreatedEventTemplate(JsonObject eiffelTemplate) {
         super(eiffelTemplate);
@@ -47,27 +47,27 @@ public class EiffelSourceChangeCreatedEventTemplate extends EventTemplate {
         JsonObject gitIdentifier = super.data.getAsJsonObject("gitIdentifier");
         JsonObject source = super.meta.getAsJsonObject("source");
 
-        this.gitIdentifierEvent = gson.fromJson(gitIdentifier, GitIdentifier.class);
-        this.sourceEvent = gson.fromJson(source, Source.class);
+        this.gitIdentifier = gson.fromJson(gitIdentifier, GitIdentifier.class);
+        this.source = gson.fromJson(source, Source.class);
         this.event = new EiffelSourceChangeCreatedEvent();
-        this.metaEvent = new EiffelSourceChangeCreatedEventMeta();
-        this.dataEvent = new EiffelSourceChangeCreatedEventData();
+        this.eventMeta = new EiffelSourceChangeCreatedEventMeta();
+        this.eventData = new EiffelSourceChangeCreatedEventData();
     }
 
 
     @Override
     public void generateTemplate(JsonObject gerritEvent) {
-        setMetaEvent(gerritEvent);
-        setDataEvent(gerritEvent);
+        setEventMeta(gerritEvent);
+        setEventData(gerritEvent);
         generateTemplate();
     }
 
     @Override
     public void generateTemplate() {
-        if (metaEvent != null) {
-            event.setMeta(metaEvent);
-            if (dataEvent != null) {
-                event.setData(dataEvent);
+        if (eventMeta != null) {
+            event.setMeta(eventMeta);
+            if (eventData != null) {
+                event.setData(eventData);
             }
         } else {
             throw new NullPointerException("Meta is not set");
@@ -75,21 +75,21 @@ public class EiffelSourceChangeCreatedEventTemplate extends EventTemplate {
     }
 
     @Override
-    public void setMetaEvent(JsonObject meta) {
-        sourceEvent.setHost(meta.getAsJsonObject("change").get("url").toString());
-        sourceEvent.setName(meta.getAsJsonObject("uploader").get("name").toString());
-        metaEvent.setSource(sourceEvent);
+    public void setEventMeta(JsonObject meta) {
+        source.setHost(meta.getAsJsonObject("change").get("url").toString());
+        source.setName(meta.getAsJsonObject("uploader").get("name").toString());
+        eventMeta.setSource(source);
     }
 
     @Override
-    public void setDataEvent(JsonObject data) {
+    public void setEventData(JsonObject data) {
         JsonObject change = data.getAsJsonObject("change");
-        gitIdentifierEvent.setCommitId(change.get("id").toString());
-        gitIdentifierEvent.setBranch(change.get("branch").toString());
-        gitIdentifierEvent.setRepoName(data.get("project").toString());
-        gitIdentifierEvent.setRepoUri(change.get("url").toString());
+        gitIdentifier.setCommitId(change.get("id").toString());
+        gitIdentifier.setBranch(change.get("branch").toString());
+        gitIdentifier.setRepoName(data.get("project").toString());
+        gitIdentifier.setRepoUri(change.get("url").toString());
 
-        dataEvent.setGitIdentifier(gitIdentifierEvent);
+        eventData.setGitIdentifier(gitIdentifier);
     }
 
     @Override

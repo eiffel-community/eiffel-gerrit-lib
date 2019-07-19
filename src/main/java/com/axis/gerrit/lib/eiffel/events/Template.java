@@ -50,14 +50,14 @@ public interface Template {
      *
      * @param meta Gerrit event
      */
-    void setMetaEvent(JsonObject meta);
+    void setEventMeta(JsonObject meta);
 
     /**
      * Set the data of the eiffel event
      *
      * @param data Gerrit event
      */
-    void setDataEvent(JsonObject data);
+    void setEventData(JsonObject data);
 
     /**
      * Set the links of the eiffel event
