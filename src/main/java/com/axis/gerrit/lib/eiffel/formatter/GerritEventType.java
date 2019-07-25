@@ -41,7 +41,7 @@ public enum GerritEventType {
         return eventTypeMap.get(eventType.toLowerCase());
     }
 
-    public String getEventName() {
+    public String getEventType() {
         return eventType;
     }
 
