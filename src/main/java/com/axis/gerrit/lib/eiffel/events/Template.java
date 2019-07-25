@@ -26,19 +26,19 @@ import com.google.gson.JsonObject;
 public interface Template {
 
     /**
-     * Generated the eiffel event from gerritEvent
+     * Generate a eiffel event template from gerritEvent
      *
      * @param gerritEvent
      */
     void generateTemplate(JsonObject gerritEvent);
 
     /**
-     * Generate the eiffel event if atleast meta is set.
+     * Generate a eiffel event template if atleast meta is set.
      */
     void generateTemplate();
 
     /**
-     * Genereated the eiffel event to a general JsonObject
+     * Generate a pre eiffel event from a eiffel event template to be used in RemRem-Semantics generateMsg.
      *
      * @param gerritEvent
      * @return JsonObject: Eiffel event
