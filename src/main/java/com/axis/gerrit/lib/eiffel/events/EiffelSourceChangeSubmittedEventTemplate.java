@@ -85,8 +85,11 @@ public class EiffelSourceChangeSubmittedEventTemplate extends EventTemplate {
 
     @Override
     public void setEventMeta(JsonObject meta) {
-        source.setHost(meta.getAsJsonObject("change").get("url").toString());
-        source.setName(meta.getAsJsonObject("patchSet").getAsJsonObject("uploader").get("name").toString());
+        JsonObject change = meta.getAsJsonObject("change");
+        JsonObject patchSet = meta.getAsJsonObject("patchSet");
+        JsonObject uploader = patchSet.getAsJsonObject("uploader");
+        source.setHost(change.get("url").toString());
+        source.setName(uploader.get("name").toString());
         eventMeta.setSource(source);
     }
 

@@ -76,8 +76,10 @@ public class EiffelSourceChangeCreatedEventTemplate extends EventTemplate {
 
     @Override
     public void setEventMeta(JsonObject meta) {
-        source.setHost(meta.getAsJsonObject("change").get("url").toString());
-        source.setName(meta.getAsJsonObject("uploader").get("name").toString());
+        JsonObject change = meta.getAsJsonObject("change");
+        JsonObject uploader = meta.getAsJsonObject("uploader");
+        source.setHost(change.get("url").toString());
+        source.setName(uploader.get("name").toString());
         eventMeta.setSource(source);
     }
 
@@ -91,7 +93,7 @@ public class EiffelSourceChangeCreatedEventTemplate extends EventTemplate {
 
         eventData.setGitIdentifier(gitIdentifier);
     }
-    
+
     public void setLinksEvent(String target) {
 
     }
