@@ -21,6 +21,7 @@ import com.axis.gerrit.lib.eiffel.events.EiffelSourceChangeSubmittedEventTemplat
 import com.axis.gerrit.lib.eiffel.events.Template;
 import com.ericsson.eiffel.remrem.semantics.SemanticsService;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -55,12 +56,12 @@ public class EiffelEventService {
      * Get Eiffel event format from Gerrit event.
      *
      * @param gerritEvent Gerrit event
-     * @return String: Eiffel event
+     * @return JsonObject: Eiffel event
      */
-    public String getEiffel(JsonObject gerritEvent) {
+    public JsonObject convertToEiffel(JsonObject gerritEvent) {
         String gerritType = getGerritType(gerritEvent);
         Template eiffelEvent = eventTemplates.get(GerritEventType.fromString(gerritType));
-        return generateEiffelMsg(eiffelEvent, gerritType, gerritEvent);
+        return new JsonParser().parse(generateEiffelMsg(eiffelEvent, gerritType, gerritEvent)).getAsJsonObject();
     }
 
     /**
@@ -68,13 +69,13 @@ public class EiffelEventService {
      *
      * @param gerritEvent Gerrit event
      * @param eiffelId Old Eiffel event
-     * @return String: Eiffel event
+     * @return JsonObject: Eiffel event
      */
-    public String getEiffel(JsonObject gerritEvent, String eiffelId) {
+    public JsonObject convertToEiffel(JsonObject gerritEvent, String eiffelId) {
         String gerritType = getGerritType(gerritEvent);
         Template eiffelEvent = generateEiffelTemplate(gerritType);
         eiffelEvent.setLinksEvent(eiffelId);
-        return generateEiffelMsg(eiffelEvent, gerritType, gerritEvent);
+        return new JsonParser().parse(generateEiffelMsg(eiffelEvent, gerritType, gerritEvent)).getAsJsonObject();
     }
 
     private String generateEiffelMsg(Template eiffelEvent, String gerritType, JsonObject gerritEvent) {
