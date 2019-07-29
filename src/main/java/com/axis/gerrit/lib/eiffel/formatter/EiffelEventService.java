@@ -20,6 +20,7 @@ import com.axis.gerrit.lib.eiffel.events.EiffelSourceChangeCreatedEventTemplate;
 import com.axis.gerrit.lib.eiffel.events.EiffelSourceChangeSubmittedEventTemplate;
 import com.axis.gerrit.lib.eiffel.events.Template;
 import com.ericsson.eiffel.remrem.semantics.SemanticsService;
+import com.ericsson.eiffel.remrem.semantics.validator.EiffelValidationException;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -58,28 +59,39 @@ public class EiffelEventService {
      * @param gerritEvent Gerrit event
      * @return JsonObject: Eiffel event
      */
-    public JsonObject convertToEiffel(JsonObject gerritEvent) {
+    public JsonObject convertToEiffel(JsonObject gerritEvent) throws EventException, EiffelValidationException {
         String gerritType = getGerritType(gerritEvent);
+        checkEventTypeSupported(gerritType);
         Template eiffelEvent = eventTemplates.get(GerritEventType.fromString(gerritType));
-        return new JsonParser().parse(generateEiffelMsg(eiffelEvent, gerritType, gerritEvent)).getAsJsonObject();
+        return generateEiffelEvent(eiffelEvent, gerritType, gerritEvent);
     }
 
     /**
-     * Get Eiffel event format from Gerrit event and set link id
+     * Get Eiffel event format from Gerrit event and set link id.
      *
      * @param gerritEvent Gerrit event
-     * @param eiffelId Old Eiffel event
+     * @param eiffelId Old Eiffel event id
      * @return JsonObject: Eiffel event
      */
-    public JsonObject convertToEiffel(JsonObject gerritEvent, String eiffelId) {
+    public JsonObject convertToEiffel(JsonObject gerritEvent, String eiffelId)
+            throws EventException, EiffelValidationException {
         String gerritType = getGerritType(gerritEvent);
+        checkEventTypeSupported(gerritType);
         Template eiffelEvent = generateEiffelTemplate(gerritType);
         eiffelEvent.setLinksEvent(eiffelId);
-        return new JsonParser().parse(generateEiffelMsg(eiffelEvent, gerritType, gerritEvent)).getAsJsonObject();
+        return generateEiffelEvent(eiffelEvent, gerritType, gerritEvent);
     }
 
-    private String generateEiffelMsg(Template eiffelEvent, String gerritType, JsonObject gerritEvent) {
-        return service.generateMsg(getEiffelType(gerritType), eiffelEvent.generateEiffelEvent(gerritEvent));
+    private JsonObject generateEiffelEvent(Template eiffelEvent, String gerritType, JsonObject gerritEvent)
+            throws EiffelValidationException {
+        String message = service.generateMsg(getEiffelType(gerritType), eiffelEvent.generateEiffelEvent(gerritEvent));
+        return validatedEiffelEvent(gerritType, new JsonParser().parse(message).getAsJsonObject());
+    }
+
+    private JsonObject validatedEiffelEvent(String gerritType, JsonObject event) throws EiffelValidationException {
+        if (!service.validateMsg(getEiffelType(gerritType), event).isValid())
+            throw new EiffelValidationException("Event failed validation");
+        return event;
     }
 
     private Template generateEiffelTemplate(String gerritType) {
@@ -96,7 +108,13 @@ public class EiffelEventService {
         return converter.getEiffelEventName(type);
     }
 
-    private String getGerritType(JsonObject gerritEvent) {
+    private String getGerritType(JsonObject gerritEvent) throws EventException {
+        if (gerritEvent.get("type") == null) throw new EventException("Event type is missing.");
         return gerritEvent.get("type").toString().replace("\"", "");
+    }
+
+    private void checkEventTypeSupported(String gerritEventType) throws EventException {
+        if (GerritEventType.fromString(gerritEventType) == null)
+            throw new EventException("Gerrit event type \"" + gerritEventType + "\" is not supported yet.");
     }
 }
