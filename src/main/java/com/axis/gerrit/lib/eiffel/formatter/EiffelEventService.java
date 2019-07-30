@@ -113,6 +113,15 @@ public class EiffelEventService {
         return gerritEvent.get("type").toString().replace("\"", "");
     }
 
+    /**
+     * Gets the id of an eiffel event
+     * @param event Eiffel event
+     * @return String: Eiffel ID
+     */
+    public String getEiffelEventId(JsonObject event){
+        return service.getEventId(event);
+    }
+
     private void checkEventTypeSupported(String gerritEventType) throws EventException {
         if (GerritEventType.fromString(gerritEventType) == null)
             throw new EventException("Gerrit event type \"" + gerritEventType + "\" is not supported yet.");
