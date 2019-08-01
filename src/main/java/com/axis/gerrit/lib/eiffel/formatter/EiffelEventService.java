@@ -98,14 +98,25 @@ public class EiffelEventService {
         return eventTemplates.get(GerritEventType.fromString(gerritType));
     }
 
-    /***
+    /**
      * Get the matching Eiffel event from Gerrit event
+     *
      * @param gerritType Gerrit event type
      * @return String: Eiffel event type
      */
     public String getEiffelType(String gerritType) {
         GerritEventType type = GerritEventType.fromString(gerritType);
         return converter.getEiffelEventName(type);
+    }
+
+    /**
+     * Gets the eiffel event type
+     *
+     * @param eiffelEvent Eiffel event
+     * @return Eiffel event type
+     */
+    public String getEiffelType(JsonObject eiffelEvent) {
+        return service.getEventType(eiffelEvent);
     }
 
     private String getGerritType(JsonObject gerritEvent) throws EventException {
@@ -115,10 +126,11 @@ public class EiffelEventService {
 
     /**
      * Gets the id of an eiffel event
+     *
      * @param event Eiffel event
      * @return String: Eiffel ID
      */
-    public String getEiffelEventId(JsonObject event){
+    public String getEiffelEventId(JsonObject event) {
         return service.getEventId(event);
     }
 
