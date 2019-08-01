@@ -9,11 +9,21 @@ sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
+    // Needed for RemRem
     maven { url 'https://jitpack.io' }
 }
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
+
     compile 'com.github.eiffel-community:eiffel-remrem-semantics:2.0.5'
     compile 'org.json:json:20180813'
+}
+
+task uberJar(type: Jar) {
+    from sourceSets.main.output
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    with jar
 }
