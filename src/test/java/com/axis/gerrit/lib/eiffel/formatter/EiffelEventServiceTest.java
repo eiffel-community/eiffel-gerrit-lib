@@ -54,21 +54,21 @@ public class EiffelEventServiceTest {
     @Test
     @DisplayName("Testing both convertToEiffel()")
     void convertToEiffel() {
-        JsonObject eiffel_create = null;
-        JsonObject eiffel_submit = null;
+        JsonObject eiffelCreate = null;
+        JsonObject eiffelSubmit = null;
 
         try {
-            eiffel_create = service.convertToEiffel(getGerritCreatedEvent());
-            eiffel_submit = service.convertToEiffel(getGerritMergedEvent(), service.getEiffelEventId(eiffel_create));
+            eiffelCreate = service.convertToEiffel(getGerritCreatedEvent());
+            eiffelSubmit = service.convertToEiffel(getGerritMergedEvent(), service.getEiffelEventId(eiffelCreate));
         } catch (EventException | EiffelValidationException e) {
             e.printStackTrace();
         }
 
-        assertNotNull(eiffel_create);
-        assertNotNull(eiffel_submit);
+        assertNotNull(eiffelCreate);
+        assertNotNull(eiffelSubmit);
 
-        assertEquals(eiffel_create.getAsJsonObject("meta").get("id").toString(),
-                eiffel_submit.getAsJsonArray("links").get(0).getAsJsonObject().get("target").toString());
+        assertEquals(eiffelCreate.getAsJsonObject("meta").get("id").toString(),
+                eiffelSubmit.getAsJsonArray("links").get(0).getAsJsonObject().get("target").toString());
     }
 
     @Test
@@ -78,6 +78,7 @@ public class EiffelEventServiceTest {
         JsonObject empty = new JsonParser().parse("{}").getAsJsonObject();
         JsonObject eiffelWrongType = null;
         JsonObject eiffelEmpty = null;
+        JsonObject eiffelNonExistCreate = null;
 
         try {
             eiffelWrongType = service.convertToEiffel(wrongType);
@@ -92,6 +93,13 @@ public class EiffelEventServiceTest {
         }
 
         assertNull(eiffelEmpty);
+
+        try {
+            eiffelNonExistCreate = service.convertToEiffel(getGerritMergedEventFalse());
+        } catch (EventException | EiffelValidationException ignored) {
+        }
+
+        assertNull(eiffelNonExistCreate);
     }
 
     @AfterEach
@@ -119,6 +127,12 @@ public class EiffelEventServiceTest {
     private JsonObject getGerritMergedEvent() {
         return new JsonParser()
                 .parse("{\"submitter\":{\"name\":\"Test Testsson\",\"email\":\"test@mail.com\",\"username\":\"test\"},\"newRev\":\"67c0283490033c8b06dbd9b18ade062c18b3825a\",\"patchSet\":{\"number\":4,\"revision\":\"67c0283490033c8b06dbd9b18ade062c18b3825a\",\"parents\":[\"48bedd5f006b69a22245cec5acb8d9feab001005\"],\"ref\":\"refs/changes/30/394730/4\",\"uploader\":{\"name\":\"Test Testsson\",\"email\":\"test@mail.com\",\"username\":\"test\"},\"createdOn\":1562654460,\"author\":{\"name\":\"Test Testsson\",\"email\":\"test@mail.com\",\"username\":\"test\"},\"kind\":\"TRIVIAL_REBASE\",\"sizeInsertions\":0,\"sizeDeletions\":0},\"change\":{\"project\":\"layers/meta-test\",\"branch\":\"master\",\"id\":\"Ic9752f5819304951194dcbc48baead626b409211\",\"number\":394730,\"subject\":\"Doing things\",\"owner\":{\"name\":\"test\",\"email\":\"test@mail.com\",\"username\":\"test\"},\"url\":\"https://this.is.a.url\",\"commitMessage\":\"Did much work, stayed up all night\",\"hashtags\":[\"atom/1b7ae7d9618c0630c1747076943f083600622983\"],\"createdOn\":1562328923,\"status\":\"MERGED\"},\"project\":\"layers/meta-test\",\"refName\":\"refs/heads/master\",\"changeKey\":{\"id\":\"Icf5666b32dc733440666910faa612b998e44ced6\"},\"type\":\"change-merged\",\"eventCreatedOn\":1562654464}")
+                .getAsJsonObject();
+    }
+
+    private JsonObject getGerritMergedEventFalse() {
+        return new JsonParser()
+                .parse("{\"submitter\":{\"name\":\"Test Testsson\",\"email\":\"test@mail.com\",\"username\":\"test\"},\"newRev\":\"67c0283490033c8b06dbd9b18ade062c18b3825a\",\"patchSet\":{\"number\":4,\"revision\":\"67c0283490033c8b06dbd9b18ade062c18b3825a\",\"parents\":[\"48bedd5f006b69a22245cec5acb8d9feab001005\"],\"ref\":\"refs/changes/30/394730/4\",\"uploader\":{\"name\":\"Test Testsson\",\"email\":\"test@mail.com\",\"username\":\"test\"},\"createdOn\":1562654460,\"author\":{\"name\":\"Test Testsson\",\"email\":\"test@mail.com\",\"username\":\"test\"},\"kind\":\"TRIVIAL_REBASE\",\"sizeInsertions\":0,\"sizeDeletions\":0},\"change\":{\"project\":\"layers/meta-test\",\"branch\":\"master\",\"id\":\"Ic9752f5819304951194dcbc48baead626b409211\",\"number\":394730,\"subject\":\"Doing things\",\"owner\":{\"name\":\"test\",\"email\":\"test@mail.com\",\"username\":\"test\"},\"url\":\"https://this.is.a.url\",\"commitMessage\":\"Did much work, stayed up all night\",\"hashtags\":[\"atom/1b7ae7d9618c0630c1747076943f083600622983\"],\"createdOn\":1562328923,\"status\":\"MERGED\"},\"project\":\"layers/meta-test\",\"refName\":\"refs/heads/master\",\"changeKey\":{\"id\":\"Icf5666b32dc733440666910faa612b99leet1337\"},\"type\":\"change-merged\",\"eventCreatedOn\":1562654464}")
                 .getAsJsonObject();
     }
 }
