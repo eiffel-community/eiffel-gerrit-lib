@@ -53,12 +53,14 @@ public class EiffelSourceChangeSubmittedEventTemplate extends EventTemplate {
 
         this.gitIdentifier = gson.fromJson(gitIdentifier, GitIdentifier.class);
         this.source = gson.fromJson(source, Source.class);
+        init();
+    }
 
+    private void init() {
         this.link = new Link();
         this.event = new EiffelSourceChangeSubmittedEvent();
         this.eventMeta = new EiffelSourceChangeSubmittedEventMeta();
         this.eventData = new EiffelSourceChangeSubmittedEventData();
-
     }
 
     @Override
@@ -123,5 +125,10 @@ public class EiffelSourceChangeSubmittedEventTemplate extends EventTemplate {
     @Override
     public String getLinks() {
         return gson.toJson(event.getLinks());
+    }
+
+    @Override
+    protected void resetValues() {
+        init();
     }
 }

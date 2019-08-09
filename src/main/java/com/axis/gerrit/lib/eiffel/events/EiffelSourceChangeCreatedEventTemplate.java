@@ -49,11 +49,14 @@ public class EiffelSourceChangeCreatedEventTemplate extends EventTemplate {
 
         this.gitIdentifier = gson.fromJson(gitIdentifier, GitIdentifier.class);
         this.source = gson.fromJson(source, Source.class);
+        init();
+    }
+
+    private void init() {
         this.event = new EiffelSourceChangeCreatedEvent();
         this.eventMeta = new EiffelSourceChangeCreatedEventMeta();
         this.eventData = new EiffelSourceChangeCreatedEventData();
     }
-
 
     @Override
     public void generateTemplate(JsonObject gerritEvent) {
@@ -111,5 +114,10 @@ public class EiffelSourceChangeCreatedEventTemplate extends EventTemplate {
     @Override
     public String getLinks() {
         return gson.toJson(event.getLinks());
+    }
+
+    @Override
+    protected void resetValues() {
+        init();
     }
 }
