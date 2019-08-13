@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.axis.gerrit.lib.eiffel.formatter;
+package com.axis.eiffel.gerrit.lib.formatter;
 
 import java.util.HashMap;
 

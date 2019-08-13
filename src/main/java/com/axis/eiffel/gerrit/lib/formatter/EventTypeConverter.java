@@ -13,15 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.axis.gerrit.lib.eiffel.formatter;
+package com.axis.eiffel.gerrit.lib.formatter;
 
 import com.ericsson.eiffel.remrem.semantics.EiffelEventType;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.axis.gerrit.lib.eiffel.formatter.GerritEventType.CHANGE_MERGED;
-import static com.axis.gerrit.lib.eiffel.formatter.GerritEventType.PATCHSET_CREATED;
 import static com.ericsson.eiffel.remrem.semantics.EiffelEventType.SOURCECHANGE_CREATED;
 import static com.ericsson.eiffel.remrem.semantics.EiffelEventType.SOURCECHANGE_SUBMITTED;
 
@@ -35,8 +33,8 @@ public class EventTypeConverter {
 
     public static Map<GerritEventType, EiffelEventType> eventType() {
         eventTypes = new HashMap<>();
-        eventTypes.put(PATCHSET_CREATED, SOURCECHANGE_CREATED);
-        eventTypes.put(CHANGE_MERGED, SOURCECHANGE_SUBMITTED);
+        eventTypes.put(GerritEventType.PATCHSET_CREATED, SOURCECHANGE_CREATED);
+        eventTypes.put(GerritEventType.CHANGE_MERGED, SOURCECHANGE_SUBMITTED);
         return eventTypes;
     }
 
