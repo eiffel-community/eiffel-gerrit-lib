@@ -17,6 +17,8 @@
 
 <img src="./images/logo.png" alt="Gerrit to Eiffel event converter" width="350"/>
 
+[![](https://jitpack.io/v/eiffel-community/eiffel-gerrit-lib.svg)](https://jitpack.io/#eiffel-community/eiffel-gerrit-lib)
+
 # Gerrit to Eiffel event converter
 
 This library converts Gerrit events into Eiffel events. For now, only two types of events is supported. The library can be extended with more events. All Eiffel events are generated and validated with the help of [RemRem Semantics](https://github.com/eiffel-community/eiffel-remrem-semantics). Supported events can be found in the table below. 
