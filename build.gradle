@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-group 'com.axis.gerrit.lib.eiffel'
+group 'com.axis.eiffel.gerrit.lib'
 version '1.0.0'
 
 sourceCompatibility = 1.8

@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.axis.gerrit.lib.eiffel.formatter;
+package com.axis.eiffel.gerrit.lib.formatter;
 
 
-import com.axis.gerrit.lib.eiffel.events.EiffelSourceChangeCreatedEventTemplate;
-import com.axis.gerrit.lib.eiffel.events.EiffelSourceChangeSubmittedEventTemplate;
-import com.axis.gerrit.lib.eiffel.events.Template;
+import com.axis.eiffel.gerrit.lib.events.EiffelSourceChangeCreatedEventTemplate;
+import com.axis.eiffel.gerrit.lib.events.EiffelSourceChangeSubmittedEventTemplate;
+import com.axis.eiffel.gerrit.lib.events.Template;
 import com.ericsson.eiffel.remrem.semantics.SemanticsService;
 import com.ericsson.eiffel.remrem.semantics.validator.EiffelValidationException;
 import com.google.gson.JsonObject;
@@ -27,8 +27,8 @@ import com.google.gson.JsonParser;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.axis.gerrit.lib.eiffel.formatter.GerritEventType.CHANGE_MERGED;
-import static com.axis.gerrit.lib.eiffel.formatter.GerritEventType.PATCHSET_CREATED;
+import static com.axis.eiffel.gerrit.lib.formatter.GerritEventType.CHANGE_MERGED;
+import static com.axis.eiffel.gerrit.lib.formatter.GerritEventType.PATCHSET_CREATED;
 
 /**
  * Service for converting Gerrit event to Eiffel event.

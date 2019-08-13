@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.axis.gerrit.lib.eiffel.events;
+package com.axis.eiffel.gerrit.lib.events;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;

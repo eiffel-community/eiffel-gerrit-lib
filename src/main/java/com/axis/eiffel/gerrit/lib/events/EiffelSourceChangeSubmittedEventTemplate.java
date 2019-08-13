@@ -13,47 +13,53 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.axis.gerrit.lib.eiffel.events;
+package com.axis.eiffel.gerrit.lib.events;
 
 import com.ericsson.eiffel.remrem.semantics.SemanticsService;
-import com.ericsson.eiffel.semantics.events.EiffelSourceChangeCreatedEvent;
-import com.ericsson.eiffel.semantics.events.EiffelSourceChangeCreatedEventData;
-import com.ericsson.eiffel.semantics.events.EiffelSourceChangeCreatedEventMeta;
+import com.ericsson.eiffel.semantics.events.EiffelSourceChangeSubmittedEvent;
+import com.ericsson.eiffel.semantics.events.EiffelSourceChangeSubmittedEventData;
+import com.ericsson.eiffel.semantics.events.EiffelSourceChangeSubmittedEventMeta;
 import com.ericsson.eiffel.semantics.events.GitIdentifier;
+import com.ericsson.eiffel.semantics.events.Link;
 import com.ericsson.eiffel.semantics.events.Source;
 import com.google.gson.JsonObject;
 
-import static com.ericsson.eiffel.remrem.semantics.EiffelEventType.SOURCECHANGE_CREATED;
+import java.util.Collections;
+
+import static com.ericsson.eiffel.remrem.semantics.EiffelEventType.SOURCECHANGE_SUBMITTED;
 
 /**
  * @author Christian Bilevits, christian.bilevits@axis.com
  * @since 2019-07-17
  */
-public class EiffelSourceChangeCreatedEventTemplate extends EventTemplate {
+public class EiffelSourceChangeSubmittedEventTemplate extends EventTemplate {
 
-    private EiffelSourceChangeCreatedEvent event;
-    private EiffelSourceChangeCreatedEventMeta eventMeta;
-    private EiffelSourceChangeCreatedEventData eventData;
+    private EiffelSourceChangeSubmittedEvent event;
+    private EiffelSourceChangeSubmittedEventMeta eventMeta;
+    private EiffelSourceChangeSubmittedEventData eventData;
 
     private Source source;
     private GitIdentifier gitIdentifier;
+    private Link link;
 
-    private EiffelSourceChangeCreatedEventTemplate(JsonObject eiffelTemplate) {
+    private EiffelSourceChangeSubmittedEventTemplate(JsonObject eiffelTemplate) {
         super(eiffelTemplate);
     }
 
-    public EiffelSourceChangeCreatedEventTemplate(SemanticsService service) {
-        this(service.getEventTemplate(SOURCECHANGE_CREATED.getEventName()).getAsJsonObject());
+    public EiffelSourceChangeSubmittedEventTemplate(SemanticsService service) {
+        this(service.getEventTemplate(SOURCECHANGE_SUBMITTED.getEventName()).getAsJsonObject());
         JsonObject gitIdentifier = super.data.getAsJsonObject("gitIdentifier");
         JsonObject source = super.meta.getAsJsonObject("source");
 
         this.gitIdentifier = gson.fromJson(gitIdentifier, GitIdentifier.class);
         this.source = gson.fromJson(source, Source.class);
-        this.event = new EiffelSourceChangeCreatedEvent();
-        this.eventMeta = new EiffelSourceChangeCreatedEventMeta();
-        this.eventData = new EiffelSourceChangeCreatedEventData();
-    }
 
+        this.link = new Link();
+        this.event = new EiffelSourceChangeSubmittedEvent();
+        this.eventMeta = new EiffelSourceChangeSubmittedEventMeta();
+        this.eventData = new EiffelSourceChangeSubmittedEventData();
+
+    }
 
     @Override
     public void generateTemplate(JsonObject gerritEvent) {
@@ -69,6 +75,9 @@ public class EiffelSourceChangeCreatedEventTemplate extends EventTemplate {
             if (eventData != null) {
                 event.setData(eventData);
             }
+            if (link != null) {
+                event.setLinks(Collections.singletonList(link));
+            }
         } else {
             throw new NullPointerException("Meta is not set.");
         }
@@ -77,7 +86,8 @@ public class EiffelSourceChangeCreatedEventTemplate extends EventTemplate {
     @Override
     public void setEventMeta(JsonObject meta) {
         JsonObject change = meta.getAsJsonObject("change");
-        JsonObject uploader = meta.getAsJsonObject("uploader");
+        JsonObject patchSet = meta.getAsJsonObject("patchSet");
+        JsonObject uploader = patchSet.getAsJsonObject("uploader");
         source.setHost(change.get("url").toString());
         source.setName(uploader.get("name").toString());
         eventMeta.setSource(source);
@@ -94,12 +104,14 @@ public class EiffelSourceChangeCreatedEventTemplate extends EventTemplate {
         eventData.setGitIdentifier(gitIdentifier);
     }
 
+    @Override
     public void setLinksEvent(String target) {
-
+        link.setType("CHANGE");
+        link.setTarget(target);
     }
 
     @Override
-    public EiffelSourceChangeCreatedEvent getEvent() {
+    public EiffelSourceChangeSubmittedEvent getEvent() {
         return event;
     }
 
