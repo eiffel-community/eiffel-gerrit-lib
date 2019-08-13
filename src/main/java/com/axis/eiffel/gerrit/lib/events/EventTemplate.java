@@ -51,6 +51,9 @@ public abstract class EventTemplate implements Template {
                 "\"data\": " + getData() + "," +
                 "\"links\": " + getLinks() + "}}").getAsJsonObject();
 
+        resetValues();
         return event;
     }
+
+    abstract void resetValues();
 }
