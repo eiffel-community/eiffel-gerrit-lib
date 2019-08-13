@@ -1,4 +1,4 @@
-package com.axis.gerrit.lib.eiffel.formatter;
+package com.axis.eiffel.gerrit.lib.formatter;
 
 import com.ericsson.eiffel.remrem.semantics.EiffelEventType;
 import com.ericsson.eiffel.remrem.semantics.validator.EiffelValidationException;
