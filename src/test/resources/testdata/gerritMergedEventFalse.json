@@ -1,56 +1,56 @@
 {
-  "submitter":{
-    "name":"Test Testsson",
-    "email":"test@mail.com",
-    "username":"test"
+  "submitter": {
+    "name": "Test Testsson",
+    "email": "test@mail.com",
+    "username": "test"
   },
-  "newRev":"67c0283490033c8b06dbd9b18ade062c18b3825a",
-  "patchSet":{
-    "number":4,
-    "revision":"67c0283490033c8b06dbd9b18ade062c18b3825a",
-    "parents":[
+  "newRev": "67c0283490033c8b06dbd9b18ade062c18b3825a",
+  "patchSet": {
+    "number": 4,
+    "revision": "67c0283490033c8b06dbd9b18ade062c18b3825a",
+    "parents": [
       "48bedd5f006b69a22245cec5acb8d9feab001005"
     ],
-    "ref":"refs/changes/30/394730/4",
-    "uploader":{
-      "name":"Test Testsson",
-      "email":"test@mail.com",
-      "username":"test"
+    "ref": "refs/changes/30/394730/4",
+    "uploader": {
+      "name": "Test Testsson",
+      "email": "test@mail.com",
+      "username": "test"
     },
-    "createdOn":1562654460,
-    "author":{
-      "name":"Test Testsson",
-      "email":"test@mail.com",
-      "username":"test"
+    "createdOn": 1562654460,
+    "author": {
+      "name": "Test Testsson",
+      "email": "test@mail.com",
+      "username": "test"
     },
-    "kind":"TRIVIAL_REBASE",
-    "sizeInsertions":0,
-    "sizeDeletions":0
+    "kind": "TRIVIAL_REBASE",
+    "sizeInsertions": 0,
+    "sizeDeletions": 0
   },
-  "change":{
-    "project":"layers/meta-test",
-    "branch":"master",
-    "id":"Ic9752f5819304951194dcbc48baead626b409211",
-    "number":394730,
-    "subject":"Doing things",
-    "owner":{
-      "name":"test",
-      "email":"test@mail.com",
-      "username":"test"
+  "change": {
+    "project": "layers/meta-test",
+    "branch": "master",
+    "id": "Ic9752f5819304951194dcbc48baead626b409211",
+    "number": 394730,
+    "subject": "Doing things",
+    "owner": {
+      "name": "test",
+      "email": "test@mail.com",
+      "username": "test"
     },
-    "url":"https://this.is.a.url",
-    "commitMessage":"Did much work, stayed up all night",
-    "hashtags":[
+    "url": "https://this.is.a.url",
+    "commitMessage": "Did much work, stayed up all night",
+    "hashtags": [
       "atom/1b7ae7d9618c0630c1747076943f083600622983"
     ],
-    "createdOn":1562328923,
-    "status":"MERGED"
+    "createdOn": 1562328923,
+    "status": "MERGED"
   },
-  "project":"layers/meta-test",
-  "refName":"refs/heads/master",
-  "changeKey":{
-    "id":"Icf5666b32dc733440666910faa612b99leet1337"
+  "project": "layers/meta-test",
+  "refName": "refs/heads/master",
+  "changeKey": {
+    "id": "Icf5666b32dc733440666910faa612b99leet1337"
   },
-  "type":"change-merged",
-  "eventCreatedOn":1562654464
+  "type": "change-merged",
+  "eventCreatedOn": 1562654464
 }
