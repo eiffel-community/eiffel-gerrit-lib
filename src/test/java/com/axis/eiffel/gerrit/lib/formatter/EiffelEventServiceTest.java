@@ -9,7 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static com.axis.eiffel.gerrit.lib.formatter.TestDataHelper.ResourceType.*;
+import static com.axis.eiffel.gerrit.lib.formatter.TestResourceType.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -22,8 +22,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 public class EiffelEventServiceTest {
 
     private final EiffelEventService service = new EiffelEventService();
-
-    private final TestDataHelper testDataHelper = new TestDataHelper();
 
     @BeforeEach
     void setUp() {
@@ -41,17 +39,17 @@ public class EiffelEventServiceTest {
     @Test
     @DisplayName("Testing getEiffelType for a eiffel event")
     void getEiffelTypeEiffel() {
-        assertEquals(service.getEiffelType(getEiffelCreatedEvent()),
+        assertEquals(service.getEiffelType(EIFFEL_CREATED_EVENT.load()),
                 EiffelEventType.SOURCECHANGE_CREATED.getEventName());
-        assertEquals(service.getEiffelType(getEiffelSubmittedEvent()),
+        assertEquals(service.getEiffelType(EIFFEL_SUBMITTED_EVENT.load()),
                 EiffelEventType.SOURCECHANGE_SUBMITTED.getEventName());
     }
 
     @Test
     @DisplayName("Testing getEiffelEventId")
     void getEiffelEventId() {
-        assertEquals(service.getEiffelEventId(getEiffelCreatedEvent()), "14418a3d-5cf2-4d27-8b54-8d307b790164");
-        assertEquals(service.getEiffelEventId(getEiffelSubmittedEvent()), "60a928ee-5f1d-47a2-8985-815fb731e634");
+        assertEquals(service.getEiffelEventId(EIFFEL_CREATED_EVENT.load()), "14418a3d-5cf2-4d27-8b54-8d307b790164");
+        assertEquals(service.getEiffelEventId(EIFFEL_SUBMITTED_EVENT.load()), "60a928ee-5f1d-47a2-8985-815fb731e634");
     }
 
     @Test
@@ -61,8 +59,8 @@ public class EiffelEventServiceTest {
         JsonObject eiffelSubmit = null;
 
         try {
-            eiffelCreate = service.convertToEiffel(getGerritCreatedEvent());
-            eiffelSubmit = service.convertToEiffel(getGerritMergedEvent(), service.getEiffelEventId(eiffelCreate));
+            eiffelCreate = service.convertToEiffel(GERRIT_CREATED_EVENT.load());
+            eiffelSubmit = service.convertToEiffel(GERRIT_MERGED_EVENT.load(), service.getEiffelEventId(eiffelCreate));
         } catch (EventException | EiffelValidationException e) {
             e.printStackTrace();
         }
@@ -98,7 +96,7 @@ public class EiffelEventServiceTest {
         assertNull(eiffelEmpty);
 
         try {
-            eiffelNonExistCreate = service.convertToEiffel(getGerritMergedEventFalse());
+            eiffelNonExistCreate = service.convertToEiffel(GERRIT_MERGED_EVENT_FALSE.load());
         } catch (EventException | EiffelValidationException ignored) {
         }
 
@@ -107,35 +105,5 @@ public class EiffelEventServiceTest {
 
     @AfterEach
     void tearDown() {
-    }
-
-    private JsonObject getEiffelCreatedEvent() {
-        return new JsonParser()
-                .parse(testDataHelper.getResourceAsString(EIFFEL_CREATED_EVENT))
-                .getAsJsonObject();
-    }
-
-    private JsonObject getEiffelSubmittedEvent() {
-        return new JsonParser()
-                .parse(testDataHelper.getResourceAsString(EIFFEL_SUBMITTED_EVENT))
-                .getAsJsonObject();
-    }
-
-    private JsonObject getGerritCreatedEvent() {
-        return new JsonParser()
-                .parse(testDataHelper.getResourceAsString(GERRIT_CREATED_EVENT))
-                .getAsJsonObject();
-    }
-
-    private JsonObject getGerritMergedEvent() {
-        return new JsonParser()
-                .parse(testDataHelper.getResourceAsString(GERRIT_MERGED_EVENT))
-                .getAsJsonObject();
-    }
-
-    private JsonObject getGerritMergedEventFalse() {
-        return new JsonParser()
-                .parse(testDataHelper.getResourceAsString(GERRIT_MERGED_EVENT_FALSE))
-                .getAsJsonObject();
     }
 }
