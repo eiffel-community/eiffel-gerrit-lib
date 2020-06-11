@@ -27,7 +27,7 @@ This library converts Gerrit events into Eiffel events. For now, only two types 
 
 The contents of this repository are licensed under the [Apache License 2.0](./LICENSE).
 
-To get involved, please see [Code of Conduct](./CODE_OF_CONDUCT.md) and [contribution guidelines](./CONTRIBUTING.md).
+To get involved, please see [Code of Conduct](https://github.com/eiffel-community/.github/blob/master/CODE_OF_CONDUCT.md) and [contribution guidelines](https://github.com/eiffel-community/.github/blob/master/CONTRIBUTING.md).
 
 # About Eiffel
 
