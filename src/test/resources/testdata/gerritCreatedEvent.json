@@ -1,0 +1,53 @@
+{
+  "uploader": {
+    "name": "Test Testsson",
+    "email": "test@mail.com",
+    "username": "test"
+  },
+  "patchSet": {
+    "number": 1,
+    "revision": "833156812815a0649b1171a44fdef8856d637a56",
+    "parents": [
+      "cb438f3e6c0d2c0cf77c8b013d5b019206e09e66"
+    ],
+    "ref": "refs/changes/95/394895/1",
+    "uploader": {
+      "name": "Test Testsson",
+      "email": "test@mail.com",
+      "username": "test"
+    },
+    "createdOn": 1562576289,
+    "author": {
+      "name": "Test Testsson",
+      "email": "test@mail.com",
+      "username": "test"
+    },
+    "kind": "REWORK",
+    "sizeInsertions": 5,
+    "sizeDeletions": 0
+  },
+  "change": {
+    "project": "apps/utils/test",
+    "branch": "master",
+    "id": "Icf5666b32dc733440666910faa612b998e44ced6",
+    "number": 394895,
+    "subject": "I did something good",
+    "owner": {
+      "name": "Test Testsson",
+      "email": "test@test.com",
+      "username": "test"
+    },
+    "url": "https://this.is.a.url",
+    "commitMessage": "Very good. Much Work",
+    "createdOn": 1562576289,
+    "status": "NEW",
+    "wip": true
+  },
+  "project": "apps/utils/test",
+  "refName": "refs/heads/master",
+  "changeKey": {
+    "id": "Icf5666b32dc733440666910faa612b998e44ced6"
+  },
+  "type": "patchset-created",
+  "eventCreatedOn": 1562576293
+}

@@ -1,0 +1,32 @@
+{
+  "meta": {
+    "id": "60a928ee-5f1d-47a2-8985-815fb731e634",
+    "type": "EiffelSourceChangeSubmittedEvent",
+    "version": "3.0.0",
+    "time": 1564659395978,
+    "tags": [
+    ],
+    "source": {
+      "domainId": "",
+      "host": "\"https://links.se\"",
+      "name": "\"Test Testsson\"",
+      "uri": ""
+    }
+  },
+  "data": {
+    "gitIdentifier": {
+      "commitId": "\"I0b165d8ad7bfdca846e91ae16913df5bbe7e153c\"",
+      "branch": "\"master\"",
+      "repoName": "\"test\"",
+      "repoUri": "\"https://link.se\""
+    },
+    "customData": [
+    ]
+  },
+  "links": [
+    {
+      "type": "CHANGE",
+      "target": "14418a3d-5cf2-4d27-8b54-8d307b790164"
+    }
+  ]
+}
