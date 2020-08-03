@@ -15,10 +15,10 @@
   },
   "data": {
     "gitIdentifier": {
-      "commitId": "\"I4a75a2005033860f084463c15e7ce40312e53c40\"",
+      "commitId": "\"Icf5666b32dc733440666910faa612b998e44ced6\"",
       "branch": "\"master\"",
-      "repoName": "\"test\"",
-      "repoUri": "\"https://link.se\""
+      "repoName": "\"apps/utils/test\"",
+      "repoUri": "\"https://this.is.a.url\""
     },
     "customData": [
     ]
