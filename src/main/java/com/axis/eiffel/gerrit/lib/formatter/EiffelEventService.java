@@ -121,7 +121,7 @@ public class EiffelEventService {
 
     private String getGerritType(JsonObject gerritEvent) throws EventException {
         if (gerritEvent.get("type") == null) throw new EventException("Event type is missing.");
-        return gerritEvent.get("type").toString().replace("\"", "");
+        return gerritEvent.get("type").getAsString();
     }
 
     /**

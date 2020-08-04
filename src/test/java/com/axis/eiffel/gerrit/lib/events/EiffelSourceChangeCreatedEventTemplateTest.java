@@ -39,10 +39,10 @@ public class EiffelSourceChangeCreatedEventTemplateTest {
         template.generateTemplate(GERRIT_CREATED_EVENT.load());
 
         GitIdentifier gitIdentifier = template.getEvent().getData().getGitIdentifier();
-        assertEquals("\"master\"", gitIdentifier.getBranch());
-        assertEquals("\"Icf5666b32dc733440666910faa612b998e44ced6\"", gitIdentifier.getCommitId());
-        assertEquals("\"apps/utils/test\"", gitIdentifier.getRepoName());
-        assertEquals("\"https://this.is.a.url\"", gitIdentifier.getRepoUri());
+        assertEquals("master", gitIdentifier.getBranch());
+        assertEquals("Icf5666b32dc733440666910faa612b998e44ced6", gitIdentifier.getCommitId());
+        assertEquals("apps/utils/test", gitIdentifier.getRepoName());
+        assertEquals("https://this.is.a.url", gitIdentifier.getRepoUri());
     }
 
     @Test
@@ -53,8 +53,8 @@ public class EiffelSourceChangeCreatedEventTemplateTest {
 
         Source source = template.getEvent().getMeta().getSource();
         assertEquals("", source.getDomainId());
-        assertEquals("\"https://this.is.a.url\"", source.getHost());
-        assertEquals("\"Test Testsson\"", source.getName());
+        assertEquals("https://this.is.a.url", source.getHost());
+        assertEquals("Test Testsson", source.getName());
         assertEquals("", source.getUri());
     }
 }

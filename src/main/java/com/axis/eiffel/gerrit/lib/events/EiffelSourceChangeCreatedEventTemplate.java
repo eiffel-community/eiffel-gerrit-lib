@@ -81,18 +81,18 @@ public class EiffelSourceChangeCreatedEventTemplate extends EventTemplate {
     public void setEventMeta(JsonObject meta) {
         JsonObject change = meta.getAsJsonObject("change");
         JsonObject uploader = meta.getAsJsonObject("uploader");
-        source.setHost(change.get("url").toString());
-        source.setName(uploader.get("name").toString());
+        source.setHost(change.get("url").getAsString());
+        source.setName(uploader.get("name").getAsString());
         eventMeta.setSource(source);
     }
 
     @Override
     public void setEventData(JsonObject data) {
         JsonObject change = data.getAsJsonObject("change");
-        gitIdentifier.setCommitId(change.get("id").toString());
-        gitIdentifier.setBranch(change.get("branch").toString());
-        gitIdentifier.setRepoName(data.get("project").toString());
-        gitIdentifier.setRepoUri(change.get("url").toString());
+        gitIdentifier.setCommitId(change.get("id").getAsString());
+        gitIdentifier.setBranch(change.get("branch").getAsString());
+        gitIdentifier.setRepoName(data.get("project").getAsString());
+        gitIdentifier.setRepoUri(change.get("url").getAsString());
 
         eventData.setGitIdentifier(gitIdentifier);
     }

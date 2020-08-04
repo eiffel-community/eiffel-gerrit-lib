@@ -8,17 +8,17 @@
     ],
     "source": {
       "domainId": "",
-      "host": "\"https://link.se\"",
-      "name": "\"Test Testsson\"",
+      "host": "https://link.se",
+      "name": "Test Testsson",
       "uri": ""
     }
   },
   "data": {
     "gitIdentifier": {
-      "commitId": "\"Icf5666b32dc733440666910faa612b998e44ced6\"",
-      "branch": "\"master\"",
-      "repoName": "\"apps/utils/test\"",
-      "repoUri": "\"https://this.is.a.url\""
+      "commitId": "Icf5666b32dc733440666910faa612b998e44ced6",
+      "branch": "master",
+      "repoName": "apps/utils/test",
+      "repoUri": "https://this.is.a.url"
     },
     "customData": [
     ]

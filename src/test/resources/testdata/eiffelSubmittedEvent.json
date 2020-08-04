@@ -8,17 +8,17 @@
     ],
     "source": {
       "domainId": "",
-      "host": "\"https://this.is.a.url\"",
-      "name": "\"Test Testsson\"",
+      "host": "https://this.is.a.url",
+      "name": "Test Testsson",
       "uri": ""
     }
   },
   "data": {
     "gitIdentifier": {
-      "commitId": "\"Ic9752f5819304951194dcbc48baead626b409211\"",
-      "branch": "\"master\"",
-      "repoName": "\"layers/meta-test\"",
-      "repoUri": "\"https://this.is.a.url\""
+      "commitId": "Ic9752f5819304951194dcbc48baead626b409211",
+      "branch": "master",
+      "repoName": "layers/meta-test",
+      "repoUri": "https://this.is.a.url"
     },
     "customData": [
     ]

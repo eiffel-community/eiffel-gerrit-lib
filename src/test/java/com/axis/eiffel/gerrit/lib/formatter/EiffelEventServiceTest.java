@@ -68,8 +68,8 @@ public class EiffelEventServiceTest {
         assertNotNull(eiffelCreate);
         assertNotNull(eiffelSubmit);
 
-        assertEquals(eiffelCreate.getAsJsonObject("meta").get("id").toString(),
-                eiffelSubmit.getAsJsonArray("links").get(0).getAsJsonObject().get("target").toString());
+        assertEquals(eiffelCreate.getAsJsonObject("meta").get("id").getAsString(),
+                eiffelSubmit.getAsJsonArray("links").get(0).getAsJsonObject().get("target").getAsString());
     }
 
     @Test
