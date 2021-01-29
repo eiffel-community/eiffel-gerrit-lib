@@ -17,6 +17,7 @@
 
 <img src="./images/logo.png" alt="Gerrit to Eiffel event converter" width="350"/>
 
+[![Sandbox badge](https://img.shields.io/badge/Stage-Sandbox-yellow)](https://github.com/eiffel-community/community/blob/master/PROJECT_LIFECYCLE.md#stage-sandbox)
 [![](https://jitpack.io/v/eiffel-community/eiffel-gerrit-lib.svg)](https://jitpack.io/#eiffel-community/eiffel-gerrit-lib)
 
 # Gerrit to Eiffel event converter
